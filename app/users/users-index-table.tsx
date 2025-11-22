@@ -29,7 +29,7 @@ const columns: PaginatedTableColumn<Omit<User, 'role'>>[] = [
 ]
 
 export function UsersIndexTable({ data }: UsersIndexTableProps) {
-  return <PaginatedTable data={data} columns={columns} />
+  return <PaginatedTable data={data} columns={columns} isSearchable />
 }
 
 export function UsersIndexTableSkeleton() {

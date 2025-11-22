@@ -31,11 +31,20 @@ export function Header() {
             <NavigationMenu>
               <NavigationMenuList>
                 {user.role === 'ADMIN' && (
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                      <NavLinkAdapter to='/users'>Потребители</NavLinkAdapter>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+                  <>
+                    <NavigationMenuItem>
+                      <NavigationMenuLink asChild>
+                        <NavLinkAdapter to='/users'>Потребители</NavLinkAdapter>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavigationMenuLink asChild>
+                        <NavLinkAdapter to='/passports'>
+                          Паспорти
+                        </NavLinkAdapter>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  </>
                 )}
               </NavigationMenuList>
             </NavigationMenu>

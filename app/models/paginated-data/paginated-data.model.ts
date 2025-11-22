@@ -9,12 +9,19 @@ export type PaginatedData<T> = {
   items: T[]
 }
 
-export type PaginatedTableColumn<T> = {
-  key: keyof T
-  header: string
-  cell?: (item: T) => ReactNode
-  searchable?: boolean
-}
+export type PaginatedTableColumn<T> =
+  | {
+      key: keyof T
+      header: string
+      cell?: (item: T) => ReactNode
+      searchable?: boolean
+    }
+  | {
+      key: 'actions'
+      header: string
+      cell: (item: T) => ReactNode
+      searchable?: never
+    }
 
 export type ItemsPerPage = (typeof ITEMS_PER_PAGE)[number]
 

@@ -12,11 +12,14 @@ export default [
     index('routes/dashboard.tsx'),
 
     // Users
-    ...prefix('users', [
-      index('routes/users/users.tsx'),
-      // route('/create', 'routes/users/user-create.tsx'),
-      // route('/:userId', 'routes/users/user-detail.tsx'),
-      // route('/:userId/edit', 'routes/users/user-edit.tsx'),
+    ...prefix('users', [index('routes/users/users.tsx')]),
+
+    // Passports
+    ...prefix('passports', [
+      index('routes/passports/passports.tsx'),
+      route('/:passportId', 'routes/passports/passport-details.tsx'),
+      // route('/create', 'routes/passports/passport-create.tsx'),
+      // route('/:passportId/edit', 'routes/passports/passport-edit.tsx'),
     ]),
   ]),
 ] satisfies RouteConfig

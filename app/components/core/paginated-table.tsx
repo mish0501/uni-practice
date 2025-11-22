@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router'
+import { useNavigate, useSearchParams, Link } from 'react-router'
 import { Card, CardContent, CardFooter, CardHeader } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
@@ -40,13 +40,17 @@ import { useDebounce } from '~/lib/hooks/use-debounce.hook'
 export type PaginatedTableProps<T> = {
   data: PaginatedData<T>
   columns: PaginatedTableColumn<T>[]
+  isSearchable?: boolean
   searchPlaceholder?: string
+  getRowLink?: (item: T) => string
 }
 
 export function PaginatedTable<T extends Record<string, any>>({
   data,
   columns,
+  isSearchable = false,
   searchPlaceholder = 'Търсене...',
+  getRowLink,
 }: PaginatedTableProps<T>) {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -60,7 +64,7 @@ export function PaginatedTable<T extends Record<string, any>>({
   const size = data.size
 
   const filteredItems = useMemo(() => {
-    if (!searchQuery.trim()) {
+    if (!isSearchable || !searchQuery.trim()) {
       return data.items
     }
 
@@ -149,12 +153,14 @@ export function PaginatedTable<T extends Record<string, any>>({
     <Card>
       <CardHeader className='flex flex-row items-center justify-between space-y-0 gap-4'>
         <div className='flex-1 max-w-xs'>
-          <Input
-            placeholder={searchPlaceholder}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className='w-full'
-          />
+          {isSearchable && (
+            <Input
+              placeholder={searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className='w-full'
+            />
+          )}
         </div>
         <div className='flex items-center gap-2'>
           <Label htmlFor='items-per-page' className='whitespace-nowrap'>
@@ -198,17 +204,25 @@ export function PaginatedTable<T extends Record<string, any>>({
               )}
 
               {filteredItems.length > 0 &&
-                filteredItems.map((item, rowIndex) => (
-                  <TableRow key={rowIndex}>
-                    {columns.map((column, colIndex) => (
-                      <TableCell key={colIndex}>
-                        {column.cell
-                          ? column.cell(item)
-                          : String(item[column.key] ?? '')}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
+                filteredItems.map((item, rowIndex) => {
+                  const rowLink = getRowLink?.(item)
+
+                  return (
+                    <TableRow
+                      key={rowIndex}
+                      className={rowLink ? 'cursor-pointer' : undefined}
+                      onClick={rowLink ? () => navigate(rowLink) : undefined}
+                    >
+                      {columns.map((column, colIndex) => (
+                        <TableCell key={colIndex}>
+                          {column.cell
+                            ? column.cell(item)
+                            : String(item[column.key] ?? '')}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  )
+                })}
             </TableBody>
           </Table>
         </div>
