@@ -1,4 +1,4 @@
-import { redirect, useLoaderData } from 'react-router'
+import { Link, redirect, useLoaderData } from 'react-router'
 import { fetchApi } from '~/lib/api'
 import {
   buildPaginatedQueryString,
@@ -14,6 +14,8 @@ import {
 } from '~/passports/passports-index-table'
 import type { PassportsIndexResponse } from '~/models/passports.models'
 import type { Route } from './+types/passports'
+import { Button } from '~/components/ui/button'
+import { PlusIcon } from 'lucide-react'
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -71,7 +73,18 @@ type PassportsPageProps = {
 function PassportsPage({ children }: PassportsPageProps) {
   return (
     <>
-      <h1 className='text-2xl font-bold mb-4'>Паспорти</h1>
+      <div className='flex items-center justify-between mb-4'>
+        <h1 className='text-2xl font-bold'>Паспорти</h1>
+        <Button
+          asChild
+          className='bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700'
+        >
+          <Link to='/passports/create'>
+            <PlusIcon />
+            Създай паспорт
+          </Link>
+        </Button>
+      </div>
       {children}
     </>
   )

@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader } from '~/components/ui/card'
 import { Label } from '~/components/ui/label'
 import { Skeleton } from '~/components/ui/skeleton'
 import { Button } from '~/components/ui/button'
-import { PencilIcon, TrashIcon } from 'lucide-react'
+import { PencilIcon } from 'lucide-react'
+import { Link } from 'react-router'
 import type { Passport } from '~/models/passports.models'
+import { DeletePassportButton } from '~/components/passports/delete-passport-button'
 
 export type PassportDetailsCardProps = {
   passport: Passport
@@ -22,14 +24,14 @@ export function PassportDetailsCard({ passport }: PassportDetailsCardProps) {
             <Button
               variant='default'
               className='bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-600 dark:hover:bg-blue-700'
+              asChild
             >
-              <PencilIcon />
-              Редактирай
+              <Link to={`/passports/${passport.id}/edit`}>
+                <PencilIcon />
+                Редактирай
+              </Link>
             </Button>
-            <Button variant='destructive'>
-              <TrashIcon />
-              Изтрий
-            </Button>
+            <DeletePassportButton passport={passport} />
           </div>
         </div>
       </CardHeader>

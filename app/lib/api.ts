@@ -28,6 +28,14 @@ export async function fetchApi<TData = unknown>(
     throw new UnauthorizedError()
   }
 
+  if (method === 'DELETE') {
+    if (!response.ok) {
+      throw new Error('Request failed')
+    }
+
+    return {} as TData
+  }
+
   const data = (await response.json()) as TData
 
   if (!response.ok) {

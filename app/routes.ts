@@ -18,8 +18,8 @@ export default [
     ...prefix('passports', [
       index('routes/passports/passports.tsx'),
       route('/:passportId', 'routes/passports/passport-details.tsx'),
-      // route('/create', 'routes/passports/passport-create.tsx'),
-      // route('/:passportId/edit', 'routes/passports/passport-edit.tsx'),
+      route('/create', 'routes/passports/passport-create.tsx'),
+      route('/:passportId/edit', 'routes/passports/passport-edit.tsx'),
     ]),
   ]),
 ] satisfies RouteConfig

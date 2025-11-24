@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Link, useRevalidator } from 'react-router'
 import {
   PaginatedTable,
   PaginatedTableSkeleton,
@@ -9,13 +10,15 @@ import type {
   PassportsIndexResponse,
 } from '~/models/passports.models'
 import { Button } from '~/components/ui/button'
-import { PencilIcon, TrashIcon } from 'lucide-react'
+import { PencilIcon } from 'lucide-react'
+import { DeletePassportButton } from '~/components/passports/delete-passport-button'
 
 type PassportsIndexTableProps = {
   data: PassportsIndexResponse
 }
 
 export function PassportsIndexTable({ data }: PassportsIndexTableProps) {
+  const revalidator = useRevalidator()
   const columns: PaginatedTableColumn<Passport>[] = useMemo(
     () => [
       {
@@ -51,23 +54,21 @@ export function PassportsIndexTable({ data }: PassportsIndexTableProps) {
               size='icon-sm'
               variant='default'
               className='bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-600 dark:hover:bg-blue-700'
-              onClick={(e) => {
-                e.stopPropagation()
-                // Edit action will be added here
-              }}
+              asChild
+              onClick={(e) => e.stopPropagation()}
             >
-              <PencilIcon />
+              <Link to={`/passports/${passport.id}/edit`}>
+                <PencilIcon />
+              </Link>
             </Button>
-            <Button
-              size='icon-sm'
-              variant='destructive'
-              onClick={(e) => {
-                e.stopPropagation()
-                // Delete action will be added here
-              }}
-            >
-              <TrashIcon />
-            </Button>
+            <div onClick={(e) => e.stopPropagation()}>
+              <DeletePassportButton
+                passport={passport}
+                size='icon-sm'
+                showLabel={false}
+                onDeleteSuccess={() => revalidator.revalidate()}
+              />
+            </div>
           </div>
         ),
       },
