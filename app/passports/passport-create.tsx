@@ -29,14 +29,11 @@ export function PassportCreate() {
   }
 
   return (
-    <>
-      <h1 className='text-2xl font-bold mb-4'>Създаване на паспорт</h1>
-      <PassportForm
-        isLoading={isLoadingRef.current}
-        error={error?.message}
-        onSubmit={handleSubmit}
-        onCancel={handleCancel}
-      />
-    </>
+    <PassportForm
+      isLoading={isLoadingRef.current}
+      error={error?.message}
+      onSubmit={handleSubmit}
+      onCancel={handleCancel}
+    />
   )
 }

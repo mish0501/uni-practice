@@ -37,7 +37,7 @@ import { ITEMS_PER_PAGE } from '~/models/paginated-data/paginated-data.constants
 import { useMemo, useState, useEffect, useCallback } from 'react'
 import { useDebounce } from '~/lib/hooks/use-debounce.hook'
 
-export type PaginatedTableProps<T> = {
+type PaginatedTableProps<T> = {
   data: PaginatedData<T>
   columns: PaginatedTableColumn<T>[]
   isSearchable?: boolean
@@ -80,7 +80,7 @@ export function PaginatedTable<T extends Record<string, any>>({
         return String(value).toLowerCase().includes(query)
       })
     })
-  }, [data.items, searchQuery, columns])
+  }, [data.items, searchQuery, columns, isSearchable])
 
   const updateSearchParams = useCallback(
     (updates: PaginatedDataRequestParams) => {

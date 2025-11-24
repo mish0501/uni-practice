@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '~/components/ui/alert-dialog'
-import { Button, buttonVariants } from '~/components/ui/button'
+import { buttonVariants } from '~/components/ui/button'
 import { Spinner } from '../ui/spinner'
 
 export type ConfirmDialogProps = {
@@ -30,11 +30,11 @@ export type ConfirmDialogProps = {
 export function ConfirmDialog({
   title,
   description,
+  onConfirm,
+  children,
   confirmLabel = 'Потвърди',
   cancelLabel = 'Откажи',
   variant = 'destructive',
-  onConfirm,
-  children,
   disabled = false,
 }: ConfirmDialogProps) {
   const [open, setOpen] = useState(false)

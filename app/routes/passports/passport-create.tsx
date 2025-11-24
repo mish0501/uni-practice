@@ -9,5 +9,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function PassportCreatePage() {
-  return <PassportCreate />
+  return (
+    <>
+      <h1 className='text-2xl font-bold mb-4'>Създаване на паспорт</h1>
+      <PassportCreate />
+    </>
+  )
 }

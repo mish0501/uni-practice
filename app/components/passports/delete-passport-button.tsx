@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router'
-import { Button } from '~/components/ui/button'
+import { Button, buttonVariants } from '~/components/ui/button'
 import { TrashIcon } from 'lucide-react'
 import useFetch from '~/lib/hooks/use-fetch.hook'
 import { getApiUrl } from '~/lib/utils'
 import { ConfirmDialog } from '~/components/core/confirm-dialog'
 import type { Passport } from '~/models/passports.models'
+import type { VariantProps } from 'class-variance-authority'
 
 export type DeletePassportButtonProps = {
   passport: Passport
-  size?: 'default' | 'sm' | 'lg' | 'icon' | 'icon-sm'
+  size?: VariantProps<typeof buttonVariants>['size']
   showLabel?: boolean
   onDeleteSuccess?: () => void
 }

@@ -6,7 +6,7 @@ import {
 import type { Route } from './+types/passport-edit'
 import { fetchApi } from '~/lib/api'
 import { UnauthorizedError } from '~/models/response-errors/unauthorized-error'
-import { redirect } from 'react-router'
+import { redirect, useLoaderData } from 'react-router'
 import type { PassportDetailsResponse } from '~/models/passports.models'
 import { PassportEdit, PassportEditSkeleton } from '~/passports/passport-edit'
 
@@ -43,12 +43,20 @@ export async function clientLoader({
 
 export function HydrateFallback() {
   return (
-    <div className='container mx-auto py-8'>
+    <>
+      <h1 className='text-2xl font-bold mb-4'>Редактиране на паспорт</h1>
       <PassportEditSkeleton />
-    </div>
+    </>
   )
 }
 
-export default function PassportEditPage({ loaderData }: Route.ComponentProps) {
-  return <PassportEdit passport={loaderData} />
+export default function PassportEditPage() {
+  const loaderData = useLoaderData<typeof clientLoader>()
+
+  return (
+    <>
+      <h1 className='text-2xl font-bold mb-4'>Редактиране на паспорт</h1>
+      <PassportEdit passport={loaderData} />
+    </>
+  )
 }

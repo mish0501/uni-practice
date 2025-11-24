@@ -36,24 +36,16 @@ export function PassportEdit({ passport }: PassportEditProps) {
   }
 
   return (
-    <>
-      <h1 className='text-2xl font-bold mb-4'>Редактиране на паспорт</h1>
-      <PassportForm
-        passport={passport}
-        isLoading={isLoadingRef.current}
-        error={error?.message}
-        onSubmit={handleSubmit}
-        onCancel={handleCancel}
-      />
-    </>
+    <PassportForm
+      passport={passport}
+      isLoading={isLoadingRef.current}
+      error={error?.message}
+      onSubmit={handleSubmit}
+      onCancel={handleCancel}
+    />
   )
 }
 
 export function PassportEditSkeleton() {
-  return (
-    <>
-      <h1 className='text-2xl font-bold mb-4'>Редактиране на паспорт</h1>
-      <PassportFormSkeleton />
-    </>
-  )
+  return <PassportFormSkeleton />
 }

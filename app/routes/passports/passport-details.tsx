@@ -1,5 +1,4 @@
 import {
-  buildPaginatedQueryString,
   clearAuthFromSession,
   getApiUrl,
   getAuthTokenFromSession,
@@ -7,12 +6,12 @@ import {
 import type { Route } from './+types/passport-details'
 import { fetchApi } from '~/lib/api'
 import { UnauthorizedError } from '~/models/response-errors/unauthorized-error'
-import { redirect } from 'react-router'
+import { redirect, useLoaderData } from 'react-router'
 import type { PassportDetailsResponse } from '~/models/passports.models'
 import {
   PassportDetailsCard,
   PassportDetailsCardSkeleton,
-} from '~/passports/passport-details'
+} from '~/passports/passport-details-card'
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -49,12 +48,8 @@ export function HydrateFallback() {
   return <PassportDetailsCardSkeleton />
 }
 
-export default function PassportDetailsPage({
-  loaderData,
-}: Route.ComponentProps) {
-  return (
-    <div className='container mx-auto p-6'>
-      <PassportDetailsCard passport={loaderData} />
-    </div>
-  )
+export default function PassportDetailsPage() {
+  const loaderData = useLoaderData<typeof clientLoader>()
+
+  return <PassportDetailsCard passport={loaderData} />
 }

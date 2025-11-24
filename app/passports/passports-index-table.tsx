@@ -73,7 +73,7 @@ export function PassportsIndexTable({ data }: PassportsIndexTableProps) {
         ),
       },
     ],
-    []
+    [revalidator]
   )
 
   function getRowLink(passport: Passport) {
